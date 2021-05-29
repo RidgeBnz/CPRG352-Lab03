@@ -23,9 +23,7 @@ public class AgeCalculatorServlet extends HttpServlet {
             throws ServletException, IOException {
             //capture the parameters from the POST request(the form)
             String age = request.getParameter("user_age");
-            
-            //set the attribute for the JSP
-            request.setAttribute("currentAge",age);
+           
             
             // validation if the parameters don't exist or are empty or is a letter instead of number, or has a space between numbers
             if (age == null || age == ("") || age == (" ") || Character.isLetter(age.charAt(0))) {
