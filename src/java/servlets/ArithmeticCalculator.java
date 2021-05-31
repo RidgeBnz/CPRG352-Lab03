@@ -16,6 +16,7 @@ public class ArithmeticCalculator extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            request.setAttribute("ans", "---");
             getServletContext().getRequestDispatcher("/WEB-INF/arithmeticCalculator.jsp").forward(request, response);
     }
 
@@ -23,26 +24,33 @@ public class ArithmeticCalculator extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
-        
-            String firstNumber = request.getParameter("first_num");
-            String secondNumber = request.getParameter("second_num");
-            String calculatedAns = request.getParameter("calc");
-            
-            request.setAttribute("firstNum", firstNumber);
-            request.setAttribute("secondNum", secondNumber);
 
-            // validation if the parameters don't exist or are empty or is a letter instead of number, or has a space between numbers
-            if (firstNumber == null || firstNumber == ("") || firstNumber == (" ") || Character.isLetter(firstNumber.charAt(0))
-                    || secondNumber == null || secondNumber == ("") || secondNumber == (" ") || Character.isLetter(secondNumber.charAt(0))) {
-                //create helpful message to user
-                request.setAttribute("message", "invalid");
-                //forward the request and response objects to the JSP
-                getServletContext().getRequestDispatcher("/WEB-INF/arithmeticCalculator.jsp").forward(request, response);
-                return;//stop code call
+        try{
+            //capture the parameters from the POST request(the form)
+            int x = Integer.parseInt(request.getParameter("1stNum"));
+            int y = Integer.parseInt(request.getParameter("2ndNum"));
+            
+            //set the attribute for the JSP
+            request.setAttribute("firstNum", x);
+            request.setAttribute("secNum", y);
+            
+            if(request.getParameter("plus") != null) {
+                 request.setAttribute("ans", (x + y));
             }
-            
-            
-            
-    
+            if (request.getParameter("minus") != null) {
+                request.setAttribute("ans", (x - y));
+            }
+            if (request.getParameter("mult") != null) {
+                request.setAttribute("ans", (x * y));
+            }
+            if (request.getParameter("div") != null && y != 0) {
+                request.setAttribute("ans", (x % y));
+            } else if (request.getParameter("div") != null && y == 0) {
+                request.setAttribute("ans", "Error, Cannot Divide By Zero");
+            }
+        }catch (NumberFormatException e) {
+            request.setAttribute("ans", "invalid");
+        }
+        getServletContext().getRequestDispatcher("/WEB-INF/arithmeticCalculator.jsp").forward(request, response);
     }
 }

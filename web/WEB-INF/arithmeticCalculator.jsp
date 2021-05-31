@@ -13,19 +13,20 @@
     </head>
     <body>
         <h1>Arithmetic Calculator</h1>
-        <form>
-        <label>First:</label>
-        <input type="text" name="firstNum" value="${firstNum}" placeholder="0">
-        <br>
-         <label>Second:</label>
-        <input type="text" name="secondNum" value="${secondNum}" placeholder="0">
-        <br>
-         <button type="submit" name="calc" value="+">+</button>
-         <button type="submit" name="calc" value="-">-</button> 
-         <button type="submit" name="calc" value="*">*</button> 
-         <button type="button" name="calc" value="%">%</button> 
-         <p>Result: ${result}</p>
-        <a href="age">Age Calculator</a>  
+        <form method="POST" action="arithmetic"> 
+            <label>First: </label>
+            <input type="text" name="1stNum" placeholder="0" value="${firstNum}">
+            <br>
+            <label>Second: </label>
+            <input type="text" name="2ndNum" placeholder="0" value="${secNum}">
+            <br>
+            <input type="submit" name="plus" value= "+" >
+            <input type="submit" name="minus" value= "-" >
+            <input type="submit" name="mult" value= "x" >
+            <input type="submit" name="div" value= "%" > 
+            <p>Result: ${ans}</p>
+            <p>${message}</p>
+            <a href="age">Age calculator</a>
         </form>
     </body>
 </html>
