@@ -51,6 +51,7 @@ public class ArithmeticCalculator extends HttpServlet {
         }catch (NumberFormatException e) {
             request.setAttribute("ans", "invalid");
         }
+        //forward the request and response objects to the JSP
         getServletContext().getRequestDispatcher("/WEB-INF/arithmeticCalculator.jsp").forward(request, response);
     }
 }
